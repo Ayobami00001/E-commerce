@@ -1,0 +1,8 @@
+.navbar-brand{
+    color: #2a2539;
+}
+.navbar{
+    background-color: #edefc8;
+    padding: 1rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

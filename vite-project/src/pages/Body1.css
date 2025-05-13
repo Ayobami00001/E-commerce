@@ -1,0 +1,108 @@
+#home{
+    background-color:#edefc8;
+    color:  #333333;
+     width: 100%;
+     height: 100%;
+     padding: 100px 0px 0px 0px;
+     margin-bottom: -10px;
+ }
+ 
+ /* #navbar_image{
+     width: 3%;
+     height: 3%;
+ } */
+ 
+ #home_text1{
+     text-align: center;
+     font-family: sans-serif;
+     padding: 5% 15% 1% 15%;
+     font-size: 4em;
+ }
+ 
+ #home_text2{
+     text-align: center;
+     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+     padding: 0% 15% 1% 15%;
+     font-size: 1.8em;
+     color: #666666;;
+ }
+ 
+ #home_text3{
+     text-align: center;
+     font-family: sans-serif;
+     padding: 0% 5% 5% 5%;
+     font-size: 0.8em;
+ }
+ 
+ .carousel{
+     display: flex;
+     justify-self: center;
+     align-items: center;
+     width: 50%;
+     height: 50%;
+ }
+ 
+ .carouselIMG{
+     width: 100%;
+     height: 100%;
+ }
+ 
+ .button {
+     background-color: #FF7043;
+     color: #FFFFFF;
+   }
+ .button:hover {
+     background-color: #FF5722;
+   }
+   
+   a {
+     color: #1976D2;
+   }
+ 
+ .card-group{
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     gap: 20px;
+     padding: 20px;
+     background-color: #7c6767;
+   }
+ 
+ .card-body{
+     height: 100%;
+     background-color: #eae9e5;
+ }
+ 
+ .card-group{
+     display: flex;
+     justify-content: center;
+     flex-wrap: wrap;
+     gap: 20px;
+     padding: 20px;
+ }
+ 
+ #crossSpan{
+     display: flex;
+     justify-content: space-between;
+     width: 100%;
+     padding: 40px 0px 2px 0px;
+ }
+ 
+ #crossbtn{
+     background-color: #FF7043;
+     color: #FFFFFF;
+     border: none;
+     padding: 5px 10px;
+     border-radius: 5px;
+     cursor: pointer;
+ }
+ 
+ #crossbtn:hover{
+     background-color: #FF5722;
+ }
+ 
+ 
+ #crosstext2{
+     text-decoration: line-through;
+     padding: 5px 0px 0px 0px;
+ }
