@@ -41,9 +41,9 @@ mongoose.connect(URI)
   // })
 
   
-  app.get('/login', (req, res) => {
-    res.render('pages/login')
-  })
+  // app.get('/login', (req, res) => {
+  //   res.render('pages/login')
+  // })
   
   // app.get("/api", (req, res) => {
   //   res.send(cities);

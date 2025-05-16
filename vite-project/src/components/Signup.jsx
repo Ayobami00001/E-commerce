@@ -8,23 +8,63 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [mail, setMail] = useState('');
     const [pass, setPass] = useState('');
+    const [error, setError] = useState('');
+    const navigate = useNavigate()
+    const goToLogin = () =>{
+      navigate('/login')
+    }
     // const [submittedForm, setSubmittedForm] = useState("");
 
-    let navigate = useNavigate()
-
+    
     const Submit = (e) => {
+      e.preventDefault();
+      
+      
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
       if (name=="" || mail=="" || pass=="") {
-        alert("warning")
-      }else{
+        setError("Please fill in all fields");
+        return;
+      }
+       if (!emailRegex.test(mail)) {
+        setError("Invalid email format.");
+        return;
+    }
+    if (!passwordRegex.test(pass)) {
+        setError("Password must be at least 8 characters and include uppercase, lowercase, number, and special character.");
+        return;
+    }
+      
+      
         let dataOne = {name , mail , pass}
-        setName ('');
-        setMail ('');
-        setPass ('')
+        
         console.log(dataOne);
         
 
         axios.post("http://localhost:2003/register", dataOne)
+        .then((res) => {
+            if (res.data.status === "user") {
+                setError("User already exists");
+                console.log("User already exists");
+            } else if (res.data.status === "success") {
+              setError('');
+              setName ('');
+              setMail ('');
+              setPass ('');
+              navigate('/login');
+            }else {
+        setError("Unknown error occurred.");
       }
+                
+            
+        })
+        .catch((err) => {
+            setError("Something went wrong, try again.");
+            console.log(err);
+        });
+      
     }
 
   
@@ -47,7 +87,10 @@ const Signup = () => {
             <h3 className="text-center mb-4" style={{ color: '#f39c12' }}>
               Sign Up
             </h3>
-            <form >
+            <form onSubmit={Submit}>
+              {error && (
+                <div className="alert alert-danger text-center py-2">{error}</div>
+              )}
               <div className="mb-4">
                 <label htmlFor="username" className="form-label">
                   Username
@@ -112,7 +155,8 @@ const Signup = () => {
                 type="submit"
                 className="btn btn-warning w-100 mb-3"
                 style={{ fontWeight: 'bold' }}
-                onClick={Submit}
+                
+                
               >
                 Sign Up
               </button>
@@ -124,6 +168,7 @@ const Signup = () => {
                     cursor: 'pointer',
                     textDecoration: 'underline',
                   }}
+                  onClick={goToLogin}
                 >
                   Login
                 </span>

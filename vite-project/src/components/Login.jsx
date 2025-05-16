@@ -3,7 +3,6 @@ import Navbar from '../pages/Navbar';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Dashboard from './Dashboard';
 
 
 
@@ -15,24 +14,45 @@ const Login = () => {
     navigate('/signup');
   };
 
-  const Submit = (e) => {
-  // e.preventDefault(); // prevent page reload
+  const [error, setError] = useState('');
+
+const Submit = (e) => {
+  e.preventDefault(); // Prevent page reload!
+  setError('');
   if (mail === '' || pass === '') {
-    alert("Please fill in all fields");
+    setError("Please fill in all fields");
+    alert("Please fill in all fields")
   } else {
     const data = { mail, pass };
     axios.post("http://localhost:2003/login", data)
-  .then((res) => {
-    console.log(res.data);
-    if (res.data.status === "success") {
-      navigate('/dashboard'); // only navigate if login is successful
-    } else {
-      alert(res.data.message || "Login failed");
-    }
-  })
-  .catch((err) => {
-    console.error("Login error:", err);
-    alert("An error occurred during login");
+      .then((res) => {
+        console.log(res.data);
+        // if (res.data.status === "incorrect") {
+        //   alert("incorrect password")
+        // } else {
+        //   setError(res.data.message || "Login failed");
+        //   alert("user not found")
+        // }
+        if (res.data.status === "email"){
+          console.log("incorrect email");
+          setError("Incorrect password");
+          if (res.data.status === "incorrect") {
+            console.log("incorrect password");
+            setError("Incorrect password"); 
+          }
+        }else{
+          console.log("successful");
+          navigate('/dashboard')
+          
+        }
+
+      })
+      .catch((err) => {
+        console.error("Login error:", err);
+        setError(
+          err.response?.data?.message ||
+          "An error occurred during login"
+        );
       });
 
     setMail('');
@@ -59,7 +79,10 @@ const Login = () => {
             <h3 className="text-center mb-4" style={{ color: '#f39c12' }}>
               Login
             </h3>
-            <form>
+            <form onSubmit={Submit}>
+              {error && (
+                <div className="alert alert-danger text-center py-2">{error}</div>
+              )}
               <div className="mb-4">
                 <label htmlFor="exampleInputEmail1" className="form-label">
                   Email Address

@@ -11,7 +11,7 @@ const register = async (req ,res) => {
         //checkif the user is already exist
         const user = await userModel.findOne({mail: mail});
         if (user){
-            return res.status(400).json({message: "user already exist"})
+            return res.status(400).json({status: "user" , message: "user already exist"})
         }
         const newUser = new userModel({
             userName:name,
@@ -41,15 +41,16 @@ const register = async (req ,res) => {
         try {
         const user = await userModel.findOne({ email: mail }); // use correct field name
         if (!user) {
-            return res.status(404).json({ message: "User not found" });
+            return res.status(404).json({status: "email", message: "User not found" });
         }
     
         if (user.password !== pass) {
-            return res.status(401).json({ message: "Incorrect password" });
+            return res.status(401).json({status: "incorrect", message: "Incorrect password" });
+        }else{
+            console.log("User logged in successfully:", user);
+            return res.status(200).json({ status: "success", message: "Login successful", user });
         }
     
-        console.log("User logged in successfully:", user);
-        return res.status(200).json({ status: "success", message: "Login successful", user });
 
     
         } catch (err) {
@@ -57,4 +58,5 @@ const register = async (req ,res) => {
         return res.status(500).json({ message: "Login failed", error: err });
         }
     };
+
 module.exports ={register , login} 
