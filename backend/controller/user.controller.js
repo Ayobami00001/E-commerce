@@ -8,8 +8,8 @@ const register = async (req ,res) => {
 
     
     try {
-        //checkif the user is already exist
-        const user = await userModel.findOne({mail: mail});
+        
+        const user = await userModel.findOne({email: mail});
         if (user){
             return res.status(400).json({status: "user" , message: "user already exist"})
         }
@@ -39,7 +39,7 @@ const register = async (req ,res) => {
         const { mail, pass } = req.body;
     
         try {
-        const user = await userModel.findOne({ email: mail }); // use correct field name
+        const user = await userModel.findOne({ email: mail }); 
         if (!user) {
             return res.status(404).json({status: "email", message: "User not found" });
         }
@@ -59,4 +59,42 @@ const register = async (req ,res) => {
         }
     };
 
-module.exports ={register , login} 
+
+
+const getUserByEmail = async (req, res) => {
+    try {
+        const user = await userModel.findOne({ email: req.params.mail });
+        if (!user) {
+            return res.status(404).json({ status: "error", message: "User not found" });
+        }
+        res.status(200).json({ status: "success", 
+            user: {
+                name: user.userName,
+                profileImage: user.profileImage || ""
+            } });
+    } catch (error) {
+        res.status(500).json({ status: "error", message: error.message });
+    }
+};
+
+
+const uploadProfileImage = async (req, res) => {
+    try {
+        const user = await userModel.findOne({ email: req.params.mail });
+        if (!user) {
+            return res.status(404).json({ status: "error", message: "User not found" });
+        }
+        user.profileImage = `/uploads/${req.file.filename}`;
+        await user.save();
+        res.json({ status: "success", profileImage: user.profileImage });
+    } catch (err) {
+        res.status(500).json({ status: "error", message: err.message });
+    }
+};
+
+
+
+
+
+
+module.exports ={register , login , getUserByEmail , uploadProfileImage} 

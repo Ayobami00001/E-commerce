@@ -1,0 +1,30 @@
+.house {
+    background-image: url(https://res.cloudinary.com/dyzdckuxi/image/upload/v1747582910/ChatGPT_Image_May_18_2025_04_39_05_PM_wqsli4.png);
+    background-size: cover;         /* Make the image cover the whole section */
+    background-position: center;    /* Center the image */
+    background-repeat: no-repeat;   /* Prevent tiling */
+    height: 100vh;
+    display: flex;                  /* Center content horizontally and vertically */
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    /* Optional: add a dark overlay for better text visibility */
+}
+
+.house::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3); /* semi-transparent overlay */
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Example: style content inside .house */
+.house > * {
+    position: relative;
+    z-index: 2;
+    color: #fff;
+    font-size: 2rem;
+    text-align: center;
+}

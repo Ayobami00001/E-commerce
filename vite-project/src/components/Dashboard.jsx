@@ -1,13 +1,21 @@
 import React from 'react'
 import Navbar from '../pages/Navbar'
+import DashboardNavbar from '../pages/DashboardNavbar'
+import './Dashboard.css';
 
 const Dashboard = () => {
   return (
     <>
-        <div><Navbar/></div>
+        <div><DashboardNavbar/></div>
+        <section className='house'>
+          <div id='scrollspyHeading1'>
+
+          </div>
+        </section>
+        
         <section>
           <div>
-            <h1>lighter</h1>
+            
           </div>
         </section>
     </>

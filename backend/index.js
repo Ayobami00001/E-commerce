@@ -5,7 +5,16 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const userRouter = require('./routes/user.routes')
 const cors = require ("cors")
+const fs = require('fs');
+const path = require('path');
 
+
+
+const uploadDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+app.use('/uploads', express.static('uploads'));
 
 // require('ejs')
 // app.set('view engine','ejs')

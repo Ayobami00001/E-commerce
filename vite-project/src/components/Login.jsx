@@ -9,54 +9,44 @@ import axios from 'axios';
 const Login = () => {
   const [mail, setMail] = useState('');
   const [pass, setPass] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
   const goToSignup = () => {
     navigate('/signup');
   };
 
-  const [error, setError] = useState('');
 
 const Submit = (e) => {
   e.preventDefault(); // Prevent page reload!
   setError('');
   if (mail === '' || pass === '') {
     setError("Please fill in all fields");
-    alert("Please fill in all fields")
   } else {
     const data = { mail, pass };
     axios.post("http://localhost:2003/login", data)
       .then((res) => {
         console.log(res.data);
-        // if (res.data.status === "incorrect") {
-        //   alert("incorrect password")
-        // } else {
-        //   setError(res.data.message || "Login failed");
-        //   alert("user not found")
-        // }
         if (res.data.status === "email"){
-          console.log("incorrect email");
           setError("Incorrect password");
           if (res.data.status === "incorrect") {
-            console.log("incorrect password");
             setError("Incorrect password"); 
           }
-        }else{
-          console.log("successful");
-          navigate('/dashboard')
-          
+        }else if (res.data.status === "success") {
+          localStorage.setItem("userEmail", mail);
+          setMail('');
+          setPass('');
+          navigate('/dashboard');
+        }else {
+          setError(res.data.message || "Login failed");
         }
 
       })
       .catch((err) => {
-        console.error("Login error:", err);
         setError(
           err.response?.data?.message ||
           "An error occurred during login"
         );
       });
-
-    setMail('');
-    setPass('');
   }
 };
 
